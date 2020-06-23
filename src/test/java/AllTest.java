@@ -11,10 +11,11 @@ import java.io.File;
 
 public class AllTest {
 
-	BabyBirths babyBirths=new BabyBirths();
+	IBabyBirths babyBirths=new BabyBirths();
 
 	@Test
-	public void testTotalBirths () throws Exception {
+	public void testTotalBirths ()  {
+		System.out.println("totalBirths Testing..." );
 		FileResource fr = new FileResource(System.getProperty("user.dir")+"\\src\\main\\resources\\testdata\\yob2014short.csv");
 		babyBirths.totalBirths(fr);
 	}
