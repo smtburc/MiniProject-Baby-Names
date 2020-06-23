@@ -7,15 +7,16 @@
 import edu.duke.*;
 import org.junit.Test;
 
+import java.io.File;
+
 public class AllTest {
 
-	BabyBirths testClass=new BabyBirths();
+	BabyBirths babyBirths=new BabyBirths();
 
 	@Test
-	public void testTotalBirths () {
-		//FileResource fr = new FileResource();
-		FileResource fr = new FileResource("data/yob2014.csv");
-		testClass.totalBirths(fr);
+	public void testTotalBirths () throws Exception {
+		FileResource fr = new FileResource(System.getProperty("user.dir")+"\\src\\main\\resources\\testdata\\yob2014short.csv");
+		babyBirths.totalBirths(fr);
 	}
 
 

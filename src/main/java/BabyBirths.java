@@ -8,16 +8,10 @@ import org.apache.commons.csv.*;
 
 public class BabyBirths implements IBabyBirths{
 
-	public void printNames () {
-		FileResource fr = new FileResource();
-		for (CSVRecord rec : fr.getCSVParser(false)) {
-			int numBorn = Integer.parseInt(rec.get(2));
-			if (numBorn <= 100) {
-				System.out.println("Name " + rec.get(0) +
-						   " Gender " + rec.get(1) +
-						   " Num Born " + rec.get(2));
-			}
-		}
+	public static void main(String[] args) {
+		BabyBirths b=new BabyBirths();
+		FileResource fr = new FileResource("data/yob2014shorts.csv");
+		b.totalBirths(fr);
 	}
 
 	public void totalBirths (FileResource fr) {
@@ -37,6 +31,30 @@ public class BabyBirths implements IBabyBirths{
 		System.out.println("total births = " + totalBirths);
 		System.out.println("female girls = " + totalGirls);
 		System.out.println("male boys = " + totalBoys);
+	}
+
+	public Integer getRank(int year, String name, String gender) {
+		return null;
+	}
+
+	public String getName(int year, int rank, String gender) {
+		return null;
+	}
+
+	public void whatIsNameInYear(String name, int year, int newYear, String gender) {
+
+	}
+
+	public Integer yearOfHighestRank(String name, String gender) {
+		return null;
+	}
+
+	public Double getAverageRank(String name, String gender) {
+		return null;
+	}
+
+	public Integer getTotalBirthsRankedHigher(int year, String name, String gender) {
+		return null;
 	}
 
 
