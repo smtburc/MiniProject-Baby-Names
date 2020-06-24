@@ -64,7 +64,9 @@ public class BabyBirths implements IBabyBirths {
     }
 
     public void whatIsNameInYear(String name, int year, int newYear, String gender) {
-
+        Integer rank=getRank(year,name,gender);
+        String newName=getName(newYear,rank,gender);
+        System.out.println(name+" born in "+year+" would be "+newName+" if she was born in "+newYear+".");
     }
 
     public Integer yearOfHighestRank(String name, String gender) {
