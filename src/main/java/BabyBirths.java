@@ -93,7 +93,16 @@ public class BabyBirths implements IBabyBirths {
 
     @Override
     public Double getAverageRank(String name, String gender) {
-        return null;
+        int totalRank = 0;
+        int count = 0;
+        for (int i = minRange; i <= maxRange; i++) {
+            Integer rank = getRank(i, name, gender);
+            if (rank != null) {
+                totalRank+=rank;
+                count++;
+            }
+        }
+        return  ((double)totalRank/ count);
     }
 
     @Override

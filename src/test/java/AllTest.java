@@ -56,4 +56,10 @@ public class AllTest {
         System.out.println(result);
     }
 
+    @Test
+    public void testGetAverageRank() {
+        System.out.println("getAverageRank Testing...");
+        Double result =  babyBirths.getAverageRank("Isabella", "F");
+        System.out.println(result);
+    }
 }
