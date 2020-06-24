@@ -62,4 +62,11 @@ public class AllTest {
         Double result =  babyBirths.getAverageRank("Isabella", "F");
         System.out.println(result);
     }
+
+    @Test
+    public void testGetTotalBirthsRankedHigher() {
+        System.out.println("getTotalBirthsRankedHigher Testing...");
+        Integer result =  babyBirths.getTotalBirthsRankedHigher(2012,"Isabella", "F");
+        System.out.println(result);
+    }
 }

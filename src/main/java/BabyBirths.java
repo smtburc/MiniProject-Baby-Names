@@ -40,8 +40,7 @@ public class BabyBirths implements IBabyBirths {
     @Override
     public Integer getRank(int year, String name, String gender) {
         try {
-            FileResource fr = getFileResources(year);
-            List<CSVRecord> list = fr.getCSVParser(false).getRecords().stream().filter(x -> getGenderFromCSVRecord(x).equals(gender)).sorted((o1, o2) -> getCountFromCSVRecord(o2).compareTo(getCountFromCSVRecord(o1))).collect(Collectors.toList());
+            List<CSVRecord> list = getSortedRecordList(year, gender);
             Optional<CSVRecord> record = list.stream().filter(x -> getNameFromCSVRecord(x).equalsIgnoreCase(name)).findFirst();
             if (record.isPresent()) {
                 return list.indexOf(record.get()) + 1;
@@ -57,8 +56,7 @@ public class BabyBirths implements IBabyBirths {
     @Override
     public String getName(int year, int rank, String gender) {
         try {
-            FileResource fr = getFileResources(year);
-            List<CSVRecord> list = fr.getCSVParser(false).getRecords().stream().filter(x -> getGenderFromCSVRecord(x).equals(gender)).sorted((o1, o2) -> getCountFromCSVRecord(o2).compareTo(getCountFromCSVRecord(o1))).collect(Collectors.toList());
+            List<CSVRecord> list = getSortedRecordList(year, gender);
             return getNameFromCSVRecord(list.get(rank - 1));
 
         } catch (Exception e) {
@@ -98,16 +96,30 @@ public class BabyBirths implements IBabyBirths {
         for (int i = minRange; i <= maxRange; i++) {
             Integer rank = getRank(i, name, gender);
             if (rank != null) {
-                totalRank+=rank;
+                totalRank += rank;
                 count++;
             }
         }
-        return  ((double)totalRank/ count);
+        return ((double) totalRank / count);
     }
 
     @Override
     public Integer getTotalBirthsRankedHigher(int year, String name, String gender) {
-        return null;
+
+        int totalBirthsRankedHigher = 0;
+
+        Integer rank = getRank(year, name, gender);
+        try {
+
+            List<CSVRecord> list = getSortedRecordList(year, gender);
+            for (int i = 0; i < rank - 1; i++) {
+                totalBirthsRankedHigher += getCountFromCSVRecord(list.get(i));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return totalBirthsRankedHigher;
     }
 
     @Override
@@ -139,6 +151,16 @@ public class BabyBirths implements IBabyBirths {
 
     private Integer getCountFromCSVRecord(CSVRecord rec) {
         return Integer.parseInt(rec.get(2));
+    }
+
+    private List<CSVRecord> getSortedRecordList(int year, String gender) {
+        try {
+            FileResource fr = getFileResources(year);
+            return fr.getCSVParser(false).getRecords().stream().filter(x -> getGenderFromCSVRecord(x).equals(gender)).sorted((o1, o2) -> getCountFromCSVRecord(o2).compareTo(getCountFromCSVRecord(o1))).collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
