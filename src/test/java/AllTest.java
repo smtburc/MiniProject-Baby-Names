@@ -31,4 +31,13 @@ public class AllTest {
 	}
 
 
+	@Test
+	public void testGetName ()  {
+		System.out.println();
+		System.out.println("getName Testing..." );
+		babyBirths.setPath(System.getProperty("user.dir")+"\\src\\main\\resources\\testdata\\yob%%%%short.csv");
+		String result=babyBirths.getName(2014,2,"F");
+		System.out.println(result);
+	}
+
 }

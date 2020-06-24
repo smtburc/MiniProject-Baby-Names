@@ -36,14 +36,14 @@ public class BabyBirths implements IBabyBirths {
 
     public Integer getRank(int year, String name, String gender) {
         try {
-            FileResource fr=getFileResources(year);
-            List<CSVRecord> list=fr.getCSVParser(false).getRecords().stream().filter(x->getGenderFromCSVRecord(x).equals(gender)).sorted((o1, o2) -> getCountFromCSVRecord(o2).compareTo(getCountFromCSVRecord(o1))).collect(Collectors.toList());
-            Optional<CSVRecord> record= list.stream().filter(x->getNameFromCSVRecord(x).equalsIgnoreCase(name)).findFirst();
-            if(record.isPresent()){
-                return list.indexOf(record.get())+1;
+            FileResource fr = getFileResources(year);
+            List<CSVRecord> list = fr.getCSVParser(false).getRecords().stream().filter(x -> getGenderFromCSVRecord(x).equals(gender)).sorted((o1, o2) -> getCountFromCSVRecord(o2).compareTo(getCountFromCSVRecord(o1))).collect(Collectors.toList());
+            Optional<CSVRecord> record = list.stream().filter(x -> getNameFromCSVRecord(x).equalsIgnoreCase(name)).findFirst();
+            if (record.isPresent()) {
+                return list.indexOf(record.get()) + 1;
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -51,6 +51,15 @@ public class BabyBirths implements IBabyBirths {
     }
 
     public String getName(int year, int rank, String gender) {
+        try {
+            FileResource fr = getFileResources(year);
+            List<CSVRecord> list = fr.getCSVParser(false).getRecords().stream().filter(x -> getGenderFromCSVRecord(x).equals(gender)).sorted((o1, o2) -> getCountFromCSVRecord(o2).compareTo(getCountFromCSVRecord(o1))).collect(Collectors.toList());
+            return getNameFromCSVRecord(list.get(rank - 1));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -74,20 +83,23 @@ public class BabyBirths implements IBabyBirths {
         this.path = path;
     }
 
+
+    //Utily Methods -----------------------------------------------------
+
     private FileResource getFileResources(int year) {
         String path = this.path.replace("%%%%", String.valueOf(year));
         return new FileResource(path);
     }
 
-    private String getNameFromCSVRecord(CSVRecord rec){
+    private String getNameFromCSVRecord(CSVRecord rec) {
         return rec.get(0);
     }
 
-    private String getGenderFromCSVRecord(CSVRecord rec){
+    private String getGenderFromCSVRecord(CSVRecord rec) {
         return rec.get(1);
     }
 
-    private Integer getCountFromCSVRecord(CSVRecord rec){
+    private Integer getCountFromCSVRecord(CSVRecord rec) {
         return Integer.parseInt(rec.get(2));
     }
 
