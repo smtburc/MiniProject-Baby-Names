@@ -74,4 +74,11 @@ public interface IBabyBirths {
      */
     void setPath(String path);
 
+    /**
+     * for Test
+     * @param minRange
+     * @param maxRange
+     */
+    void setRange(int minRange,int maxRange);
+
 }

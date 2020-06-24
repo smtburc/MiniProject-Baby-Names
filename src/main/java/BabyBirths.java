@@ -15,7 +15,10 @@ import java.util.stream.Collectors;
 public class BabyBirths implements IBabyBirths {
 
     private String path = System.getProperty("user.dir") + "\\src\\main\\resources\\data\\yob%%%%.csv";
+    private Integer minRange = 1880;
+    private Integer maxRange = 2014;
 
+    @Override
     public void totalBirths(FileResource fr) {
         int totalBirths = 0;
         int totalBoys = 0;
@@ -34,6 +37,7 @@ public class BabyBirths implements IBabyBirths {
         System.out.println("male boys = " + totalBoys);
     }
 
+    @Override
     public Integer getRank(int year, String name, String gender) {
         try {
             FileResource fr = getFileResources(year);
@@ -50,6 +54,7 @@ public class BabyBirths implements IBabyBirths {
         return null;
     }
 
+    @Override
     public String getName(int year, int rank, String gender) {
         try {
             FileResource fr = getFileResources(year);
@@ -63,26 +68,48 @@ public class BabyBirths implements IBabyBirths {
         return null;
     }
 
+    @Override
     public void whatIsNameInYear(String name, int year, int newYear, String gender) {
-        Integer rank=getRank(year,name,gender);
-        String newName=getName(newYear,rank,gender);
-        System.out.println(name+" born in "+year+" would be "+newName+" if she was born in "+newYear+".");
+        Integer rank = getRank(year, name, gender);
+        String newName = getName(newYear, rank, gender);
+        System.out.println(name + " born in " + year + " would be " + newName + " if she was born in " + newYear + ".");
     }
 
+    @Override
     public Integer yearOfHighestRank(String name, String gender) {
-        return null;
+        Integer highestRank = null;
+        Integer highestYear = null;
+        for (int i = minRange; i <= maxRange; i++) {
+            Integer rank = getRank(i, name, gender);
+            if (rank != null) {
+                if (highestYear == null || (highestYear != null && rank < highestRank)) {
+                    highestYear = i;
+                    highestRank = rank;
+                }
+            }
+        }
+        return highestYear;
     }
 
+    @Override
     public Double getAverageRank(String name, String gender) {
         return null;
     }
 
+    @Override
     public Integer getTotalBirthsRankedHigher(int year, String name, String gender) {
         return null;
     }
 
+    @Override
     public void setPath(String path) {
         this.path = path;
+    }
+
+    @Override
+    public void setRange(int minRange, int maxRange) {
+        this.minRange = minRange;
+        this.maxRange = maxRange;
     }
 
 
