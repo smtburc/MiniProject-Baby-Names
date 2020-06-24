@@ -18,18 +18,62 @@ public class BabyBirths implements IBabyBirths {
     private Integer minRange = 1880;
     private Integer maxRange = 2014;
 
+    public static void main(String[] args) {
+        BabyBirths t=new BabyBirths();
+        System.out.println("q1 -----------------------");
+        t.totalBirths( t.getFileResources(1900));
+
+        System.out.println("q2 -----------------------");
+        t.totalBirths( t.getFileResources(1905));
+
+        System.out.println("q3 -----------------------");
+        System.out.println(t.getRank(1960,"Emily","F"));
+
+        System.out.println("q4 -----------------------");
+        System.out.println(t.getRank(1971,"Frank","M"));
+
+        System.out.println("q5 -----------------------");
+        System.out.println(t.getName(1980,350,"F"));
+
+        System.out.println("q6 -----------------------");
+        System.out.println(t.getName(1982,450,"M"));
+
+        System.out.println("q7 -----------------------");
+        t.whatIsNameInYear("Susan",1972,2014,"F");
+
+        System.out.println("q8 -----------------------");
+        t.whatIsNameInYear("Owen",1974,2014,"M");
+
+        System.out.println("q9 -----------------------");
+        System.out.println(t.yearOfHighestRank("Genevieve","F"));
+
+        System.out.println("q10 -----------------------");
+        System.out.println(t.yearOfHighestRank("Mich","M"));
+
+        System.out.println("q11 -----------------------");
+        System.out.println(t.getAverageRank("Susan","F"));
+
+        System.out.println("q12 -----------------------");
+        System.out.println(t.getAverageRank("Robert","M"));
+
+        System.out.println("q13 -----------------------");
+        System.out.println(t.getTotalBirthsRankedHigher(1990,"Emily","F"));
+
+        System.out.println("q14 -----------------------");
+        System.out.println(t.getTotalBirthsRankedHigher(1990,"Drew","M"));
+    }
+
     @Override
     public void totalBirths(FileResource fr) {
         int totalBirths = 0;
         int totalBoys = 0;
         int totalGirls = 0;
         for (CSVRecord rec : fr.getCSVParser(false)) {
-            int numBorn = Integer.parseInt(rec.get(2));
-            totalBirths += numBorn;
+            totalBirths++;
             if (rec.get(1).equals("M")) {
-                totalBoys += numBorn;
+                totalBoys ++;
             } else {
-                totalGirls += numBorn;
+                totalGirls ++;
             }
         }
         System.out.println("total births = " + totalBirths);
