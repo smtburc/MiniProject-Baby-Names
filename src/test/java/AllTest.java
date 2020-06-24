@@ -15,9 +15,19 @@ public class AllTest {
 
 	@Test
 	public void testTotalBirths ()  {
+		System.out.println();
 		System.out.println("totalBirths Testing..." );
 		FileResource fr = new FileResource(System.getProperty("user.dir")+"\\src\\main\\resources\\testdata\\yob2014short.csv");
 		babyBirths.totalBirths(fr);
+	}
+
+	@Test
+	public void testGetRank ()  {
+		System.out.println();
+		System.out.println("getRank Testing..." );
+		babyBirths.setPath(System.getProperty("user.dir")+"\\src\\main\\resources\\testdata\\yob%%%%short.csv");
+		Integer result=babyBirths.getRank(2014,"Olivia","F");
+		System.out.println(result);
 	}
 
 

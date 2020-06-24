@@ -68,5 +68,10 @@ public interface IBabyBirths {
      */
     Integer getTotalBirthsRankedHigher(int year, String name, String gender);
 
+    /**
+     * for Test
+     * @param path
+     */
+    void setPath(String path);
 
 }
