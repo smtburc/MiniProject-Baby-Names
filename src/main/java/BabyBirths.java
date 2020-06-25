@@ -76,9 +76,9 @@ public class BabyBirths implements IBabyBirths {
                 totalGirls ++;
             }
         }
-        System.out.println("total births = " + totalBirths);
-        System.out.println("female girls = " + totalGirls);
-        System.out.println("male boys = " + totalBoys);
+        System.out.println("total birth names= " + totalBirths);
+        System.out.println("female girl names= " + totalGirls);
+        System.out.println("male boy names= " + totalBoys);
     }
 
     @Override
